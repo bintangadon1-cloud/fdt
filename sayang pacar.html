@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fiska pacarku</title>
+    <link href="fiska.jpg" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background hearts */
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite;
+            font-size: 20px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        /* Main content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        /* Photo section */
+        .photo-section {
+            position: relative;
+            animation: fadeInLeft 1s ease-out 0.3s both;
+        }
+
+        .photo-frame {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            transform: rotate(-3deg);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .frame-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid #fff;
+            border-radius: 10px;
+            top: -15px;
+            left: -15px;
+            z-index: -1;
+        }
+
+        /* Love quotes section */
+        .quotes-section {
+            animation: fadeInRight 1s ease-out 0.6s both;
+        }
+
+        .quote-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 120px;
+            color: rgba(102, 126, 234, 0.1);
+            z-index: 0;
+        }
+
+        .quote-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            text-align: right;
+            color: #667eea;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        /* Additional quotes */
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .mini-quote {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .mini-quote:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .mini-quote i {
+            color: #e74c3c;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .mini-quote p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        /* Love message */
+        .love-message {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+
+        .love-message h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        .love-message p {
+            color: #555;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            z-index: 100;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(360deg);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 3rem;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .quote-text {
+                font-size: 1.5rem;
+            }
+
+            .love-message h2 {
+                font-size: 2.5rem;
+            }
+
+            .quotes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated hearts background -->
+    <div class="hearts" id="hearts"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>My Princess Cantii</h1>
+            <p>Dari Bintang</p>
+        </header>
+
+        <!-- Main content -->
+        <main>
+            <div class="main-content">
+                <!-- Photo section -->
+                <div class="photo-section">
+                    <div class="photo-frame">
+                        <img src="fiska.jpg" alt="Pasangan Romantis">
+                        <div class="frame-decoration"></div>
+                    </div>
+                </div>
+
+                <!-- Quotes section -->
+                <div class="quotes-section">
+                    <div class="quote-card">
+                        <p class="quote-text">
+                            Manis dan cantik
+                        aku Cuma mau bilang,aku sayang kamu."Selalu."
+                        </p>
+                        <p class="quote-author">- Bintang</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional quotes grid -->
+            <div class="quotes-grid">
+                <div class="mini-quote">
+                    <i class="fas fa-heart"></i>
+                    <p>kamu adalah rumah bagi aku yang selalu ingin aku tuju.</p>
+                </div>
+                <div class="mini-quote">
+                    <i class="fas fa-heart"></i>
+                    <p>Kamu baik,cantik,manis,dan selalu mengerti tentang aku.</p>
+                </div>
+                <div class="mini-quote">
+                    <i class="fas fa-heart"></i>
+                    <p>rasa cintaku seperti bintang, bersinar terang meski dari kejauhan.</p>
+                </div>
+            </div>
+
+            <!-- Love message -->
+            <div class="love-message">
+                <h2>Untukmu Princess Cantiku</h2>
+                <p>cukup kamu yang bole ngerasain cinta aku yang sesungguhnya,aku hanya pengen kasih versi terbaik diri aku,dan aku harap cerita atau kisah kita tida akan ada habisnya,I LOVE YOU,terimkasih udah hadir dihidup aku. </p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Floating action button -->
+    <div class="fab" onclick="createHeartBurst()">
+        <i class="fas fa-heart"></i>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const heartSymbols = ['❤️', '💕', '💖', '💗', '💓'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.animationDuration = (15 + Math.random() * 10) + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Create heart burst on FAB click
+        function createHeartBurst() {
+            const heartSymbols = ['❤️', '💕', '💖', '💗', '💓'];
+            const fab = document.querySelector('.fab');
+            
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.position = 'fixed';
+                heart.style.left = fab.offsetLeft + 30 + 'px';
+                heart.style.top = fab.offsetTop + 30 + 'px';
+                heart.style.fontSize = '20px';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '1000';
+                
+                const angle = (Math.PI * 2 * i) / 10;
+                const velocity = 100 + Math.random() * 100;
+                const lifetime = 1000 + Math.random() * 1000;
+                
+                document.body.appendChild(heart);
+                
+                let startTime = null;
+                function animateHeart(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    const progress = timestamp - startTime;
+                    
+                    if (progress < lifetime) {
+                        const x = Math.cos(angle) * velocity * (progress / lifetime);
+                        const y = Math.sin(angle) * velocity * (progress / lifetime) - 0.5 * 9.8 * Math.pow(progress / lifetime, 2) * 100;
+                        const opacity = 1 - (progress / lifetime);
+                        
+                        heart.style.transform = `translate(${x}px, ${y}px)`;
+                        heart.style.opacity = opacity;
+                        
+                        requestAnimationFrame(animateHeart);
+                    } else {
+                        heart.remove();
+                    }
+                }
+                
+                requestAnimationFrame(animateHeart);
+            }
+        }
+
+        // Initialize floating hearts on page load
+        window.addEventListener('load', createFloatingHearts);
+
+        // Add parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hearts');
+            parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>
